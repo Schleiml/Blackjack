@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>black jake</title>
+    <style>
+        body {
+            background: url("poker_Webseite.jpg") no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .texte {
+         font-family: 'Montserrat', sans-serif;
+        }
+
+        .Buttons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 50vh;
+        margin: 50px;
+        }
+        
+        #ausgabe{
+            align-items: center;    
+            display: flex;
+            justify-content: space-between;
+            font-size: 400%;
+            height: 0px;
+            color: #e71010c0;
+            margin-top: -10%;
+        }
+
+        #WertKarte{
+         display: flex;
+            justify-content: space-between;
+            margin-top: 20%;
+            font-size: 400%;
+            height: 0px;
+        }
+        #meine{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: -5%;
+            font-size: 400%;
+            height: 0px;
+        }
+
+        #gegner{
+            display: flex;
+            justify-content: space-between;
+            font-size: 400%;
+            height: 250px;
+            margin-bottom: -10%;
+        }
+
+        #hit{
+            position: relative;
+            margin-top: -20%;
+            right: 1px;
+            color: #ff0000;
+            background-color: #000000;
+            height: 130px;
+            width: 250px;
+            font-size: 100px;
+            font-family: 'Montserrat', sans-serif;
+            border-radius: 15px;
+            border: none;
+        }
+
+        #hit:hover{
+            background-color: rgb(126, 0, 0);
+        }
+
+        #stay{
+            margin-top: -20%;
+            position: relative;
+            left: 20px;
+            color: #0084ff;
+            background-color: #000000;
+            height: 130px;
+            width: 250px;
+            font-size: 100px;
+            font-family: 'Montserrat', sans-serif;
+            border-radius: 15px;
+            border: none;
+        }
+
+        #stay:hover{
+            background-color: #00407c;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="texte">
+        <p id="gegner">Karten gegner: </p>
+        <p id="ausgabe"></p>
+        <p id="meine">Karten ich</p>
+        <p id="WertKarte">Karten:</p>
+    </div>
+    <div class="Buttons">
+        <button id="hit" onclick="kartenZiehen()">Hit</button>
+        <button id="stay" onclick="stay()">Stay</button>
+    </div>
+
+
+     <script>
+        let wertkarte
+
+        let wertkarte2
+
+        let gesamtWert2 = 0;
+
+        let gesamtWert = 0;
+
+        function kartenZiehen() 
+        {
+
+            let Karte = Math.floor(Math.random() * 13) + 2;
+
+            let pokerDeck = {
+                "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, 
+                "7": 7, "8": 8, "9": 9, "10": 10, "Bube": 10, 
+                "Dame": 10, "König": 10, "Ass": 11
+            };
+
+            let karteName;
+
+            if (Karte === 11) {
+                karteName = "Bube";
+            } else if (Karte === 12) {
+                karteName = "Dame";
+            } else if (Karte === 13) {
+                karteName = "König";
+            } else if (Karte === 14) {
+                karteName = "Ass";
+            } else {
+                karteName = Karte.toString();
+            }
+
+            meine.innerHTML = `Gezogene Karte: ${karteName}`;
+
+            wertkarte = pokerDeck[karteName]; 
+
+            if (gesamtWert2 < 20) {
+                zihenGegenre();
+            }
+
+            addieren();
+
+            if (gesamtWert === 21 ) {
+                document.getElementById("ausgabe").innerHTML = "free win";
+                document.getElementById("hit").style.display = "none";
+                document.getElementById("stay").style.display = "none";
+                gegner.innerHTML = `Karte gegner: ${gesamtWert2}`;
+            }else if (gesamtWert > 21) {
+                document.getElementById("ausgabe").innerHTML = "loser ez";
+                document.getElementById("hit").style.display = "none";
+                document.getElementById("stay").style.display = "none";
+                gegner.innerHTML = `Karte: ${gesamtWert2}`;
+            }
+        }
+
+        function addieren() {
+            gesamtWert += wertkarte;
+            WertKarte.innerHTML = `Karte: ${gesamtWert}`;
+        }
+
+        function zihenGegenre() {
+
+            let Karte2 = Math.floor(Math.random() * 13) + 2;
+
+
+            let pokerDeck = {
+                "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, 
+                "7": 7, "8": 8, "9": 9, "10": 10, "Bube": 10, 
+                "Dame": 10, "König": 10, "Ass": 11
+            };
+
+            let karteName;
+
+            if (Karte2 === 11) {
+                karteName = "Bube";
+            } else if (Karte2 === 12) {
+                karteName = "Dame";
+            } else if (Karte2 === 13) {
+                karteName = "König";
+            } else if (Karte2 === 14) {
+                karteName = "Ass";
+            } else {
+                karteName = Karte2.toString();
+            }
+
+            wertkarte2 = pokerDeck[karteName];
+
+            addieren2();
+            }
+
+        function addieren2() {
+            gesamtWert2 += wertkarte2;
+        }
+
+        function stay() {
+            document.getElementById("hit").style.display = "none";
+            document.getElementById("stay").style.display = "none";
+            gegner.innerHTML = `Karte gegner: ${gesamtWert2}`;
+            if (gesamtWert === gesamtWert2) {
+                document.getElementById("ausgabe").innerHTML = "unendschieden";
+            } else if (gesamtWert2 === 21) {
+                document.getElementById("ausgabe").innerHTML = "losser ez";
+            } else if (gesamtWert2 < 21) {
+                if (gesamtWert > gesamtWert2) {
+                document.getElementById("ausgabe").innerHTML = "free win";
+                } else (document.getElementById("ausgabe").innerHTML = "loser ez");
+            } else document.getElementById("ausgabe").innerHTML = "free win";
+        } 
+     </script>
+
+</body>
+</html>
